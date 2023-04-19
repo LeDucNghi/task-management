@@ -1,0 +1,108 @@
+@use "../assets/styles/globalStyles.scss";
+
+.task {
+    position: relative;
+
+    margin: 1em auto;
+
+    width: 95%;
+    height: 50em;
+
+    @include globalStyles.flexCenter;
+
+    .task_container {
+        width: 90%;
+        height: 90%;
+
+        .user_filter {
+            position: relative;
+            width: 20%;
+
+            margin-bottom: 4em;
+
+            .filter_title {
+                color: #000;
+                font-weight: 500;
+                line-height: 1.5em;
+                margin-bottom: 1em;
+            }
+
+            .filter {
+                height: 1em;
+            }
+        }
+
+        .task_list {
+            position: relative;
+            width: 100%;
+
+            .tasklist_title {
+                color: #000;
+                font-weight: 500;
+                line-height: 1.5em;
+                margin-bottom: 1em;
+            }
+
+            .task_list_container {
+                width: 100%;
+                height: 34em;
+
+                overflow: auto;
+
+                border-radius: 1em;
+                border: 0.1em solid #ccc;
+
+                padding: 0 1em;
+
+                .task_list_empty {
+                    text-align: center;
+                }
+
+                .task_list_waiting {
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                }
+
+                .task_list_item {
+                    @include globalStyles.flexCenter;
+
+                    flex-direction: row;
+
+                    font-size: 0.6em;
+
+                    width: 100%;
+                    height: 4em;
+
+                    margin: 0 auto;
+
+                    border-bottom: 0.1em solid #ccc;
+
+                    .items_content {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+
+                        .MuiListItemText-primary {
+                            font-size: 1.5em;
+                        }
+
+                        .items_content_button {
+                            height: 2.2em;
+
+                            font-size: 0.8em;
+                            border: 0.1em solid #d9d9d9;
+                            color: #000000;
+
+                            text-transform: none;
+                        }
+                    }
+
+                    .items_icon {
+                        justify-content: center;
+                    }
+                }
+            }
+        }
+    }
+}
