@@ -16,6 +16,10 @@
 
 # Set up description
 
+> npx create-react-app technical-assessment --template typescript
+
+# Start project
+
 - Open terminal
 - Npm install
 - Npm start
