@@ -14,6 +14,12 @@
         width: 90%;
         height: 90%;
 
+        .task_list_done {
+            width: 100%;
+            padding: 0.5em 0;
+            font-weight: 500;
+        }
+
         .user_filter {
             position: relative;
             width: 20%;
@@ -56,12 +62,15 @@
 
                 .task_list_empty {
                     text-align: center;
+                    padding-top: 1em;
                 }
 
                 .task_list_waiting {
                     width: 100%;
                     display: flex;
                     justify-content: center;
+
+                    padding-top: 1em;
                 }
 
                 .task_list_item {

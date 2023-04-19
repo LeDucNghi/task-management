@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import CircularProgress from "@mui/material/CircularProgress";
 import IndeterminateCheckBoxOutlinedIcon from "@mui/icons-material/IndeterminateCheckBoxOutlined";
 import List from "@mui/material/List";
@@ -7,7 +8,6 @@ import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import LoadingButton from "@mui/lab/LoadingButton";
-import SaveIcon from "@mui/icons-material/Save";
 import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
 import { Tasks } from "../../../models";
 import { tasksApi } from "../../../api/taskApi";
@@ -20,6 +20,7 @@ export interface ITasksListProps {
 export function TasksList({ selectedUser }: ITasksListProps) {
   var [userTasks, setUserTasks] = useState<Tasks[]>([]);
   const [isFetching, setIsFetching] = useState<boolean>(false);
+  const [taskDone, setTaskDone] = useState<Tasks[]>([]);
 
   useEffect(() => {
     getUserTasks();
@@ -39,10 +40,22 @@ export function TasksList({ selectedUser }: ITasksListProps) {
         timer = setTimeout(() => {
           userTasks = res;
 
-          setUserTasks(userTasks);
+          const tasksSort = userTasks.sort(
+            (a, b) => Number(a.completed) - Number(b.completed)
+          );
+
+          setUserTasks(tasksSort);
 
           setIsFetching(false);
         }, 1000);
+
+        const doneTaskList = res.filter((tasks) => tasks.completed === true);
+        setTaskDone(doneTaskList);
+
+        console.log(
+          "🚀 ~ file: TaskList.tsx:24 ~ TasksList ~ taskDone:",
+          taskDone
+        );
       }
     } catch (error) {
       console.log("🚀 ~ file: Task.tsx:41 ~ getUserTask ~ error:", error);
@@ -61,7 +74,6 @@ export function TasksList({ selectedUser }: ITasksListProps) {
 
     try {
       const res = await tasksApi.updateTask(taskId, true);
-      console.log("🚀 ~ file: TaskList.tsx:65 ~ handleMarkDone ~ res:", res);
       if (res) {
         const newTasks = userTasks.map((tasks) => {
           if (tasks.id === taskId) {
@@ -70,7 +82,16 @@ export function TasksList({ selectedUser }: ITasksListProps) {
           return tasks;
         });
 
-        setUserTasks(newTasks);
+        const completedTaskList = newTasks.filter(
+          (tasks) => tasks.completed === true
+        );
+
+        const tasksSort = newTasks.sort(
+          (a, b) => Number(a.completed) - Number(b.completed)
+        );
+
+        setUserTasks(tasksSort);
+        setTaskDone(completedTaskList);
       }
     } catch (error) {
       console.log(
@@ -118,7 +139,7 @@ export function TasksList({ selectedUser }: ITasksListProps) {
                         loadingPosition="start"
                         variant="outlined"
                         onClick={() => handleMarkDone(tasks.id!)}
-                        startIcon={<SaveIcon />}
+                        startIcon={<AssignmentTurnedInIcon />}
                       >
                         Mark done
                       </LoadingButton>
@@ -130,6 +151,8 @@ export function TasksList({ selectedUser }: ITasksListProps) {
           })
         )}
       </List>
+
+      <div className="task_list_done">Done {taskDone.length}/20 tasks.</div>
     </div>
   );
 }

@@ -1,4 +1,3 @@
-import { Tasks } from "../models/task";
 import axiosClient from "./axiosClient";
 
 export const tasksApi = {
