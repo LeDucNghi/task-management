@@ -12,7 +12,7 @@ export interface IUserFilterProps {
 }
 
 export function UserFilter({ selectedUser }: IUserFilterProps) {
-  const [age, setAge] = useState("");
+  const [user, setUser] = useState("");
   var [userList, setUserList] = useState<Users[]>([]);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export function UserFilter({ selectedUser }: IUserFilterProps) {
   };
 
   const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string);
+    setUser(event.target.value as string);
     selectedUser(event.target.value as string);
   };
 
@@ -45,9 +45,10 @@ export function UserFilter({ selectedUser }: IUserFilterProps) {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={age}
+          value={user}
           label="Users"
           onChange={handleChange}
+          className="filter_select"
         >
           {userList.map((user, key) => {
             return (

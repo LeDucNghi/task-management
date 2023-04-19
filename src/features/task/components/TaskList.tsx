@@ -51,11 +51,6 @@ export function TasksList({ selectedUser }: ITasksListProps) {
 
         const doneTaskList = res.filter((tasks) => tasks.completed === true);
         setTaskDone(doneTaskList);
-
-        console.log(
-          "🚀 ~ file: TaskList.tsx:24 ~ TasksList ~ taskDone:",
-          taskDone
-        );
       }
     } catch (error) {
       console.log("🚀 ~ file: Task.tsx:41 ~ getUserTask ~ error:", error);
@@ -120,9 +115,14 @@ export function TasksList({ selectedUser }: ITasksListProps) {
               <ListItem key={key} disablePadding className="task_list_item">
                 <ListItemIcon className="items_icon">
                   {tasks.completed ? (
-                    <TaskAltOutlinedIcon color="success" fontSize="small" />
+                    <TaskAltOutlinedIcon
+                      className="icon"
+                      color="success"
+                      fontSize="small"
+                    />
                   ) : (
                     <IndeterminateCheckBoxOutlinedIcon
+                      className="icon"
                       color="warning"
                       fontSize="small"
                     />
@@ -139,7 +139,12 @@ export function TasksList({ selectedUser }: ITasksListProps) {
                         loadingPosition="start"
                         variant="outlined"
                         onClick={() => handleMarkDone(tasks.id!)}
-                        startIcon={<AssignmentTurnedInIcon />}
+                        startIcon={
+                          <AssignmentTurnedInIcon
+                            className="button_icon"
+                            color="success"
+                          />
+                        }
                       >
                         Mark done
                       </LoadingButton>
